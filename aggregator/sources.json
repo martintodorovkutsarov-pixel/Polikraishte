@@ -1,0 +1,16 @@
+{
+  "_comment": "RSS feeds to poll for news about Поликраище. Add more URLs here any time — no code changes needed. Google News RSS acts as a broad catch-all across many outlets; 'filterKeywords: false' means the feed is already scoped to the village (e.g. a tag page) so no extra keyword check is applied.",
+  "feeds": [
+    {
+      "name": "Google News (search: Поликраище)",
+      "url": "https://news.google.com/rss/search?q=%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D1%80%D0%B0%D0%B8%D1%89%D0%B5&hl=bg&gl=BG&ceid=BG:bg",
+      "filterKeywords": false
+    },
+    {
+      "name": "Царевец вести — таг Поликраище",
+      "url": "https://www.tsarevetsvesti.com/tag/%D0%BF%D0%BE%D0%BB%D0%B8%D0%BA%D1%80%D0%B0%D0%B8%D1%89%D0%B5/feed/",
+      "filterKeywords": false
+    }
+  ],
+  "keywords": ["Поликраище", "Polikraishte"]
+}

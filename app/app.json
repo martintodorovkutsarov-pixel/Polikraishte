@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Поликраище",
+    "slug": "polikraishte-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "polikraishte",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.polikraishte.app"
+    },
+    "android": {
+      "package": "com.polikraishte.app"
+    },
+    "plugins": ["expo-router"],
+    "extra": {
+      "router": {}
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "polikraishte-news-aggregator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fetches news about Поликраище from RSS sources and upserts them into Supabase.",
+  "type": "module",
+  "scripts": {
+    "fetch": "node fetch-news.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "expo": "^57.0.20",
+    "fast-xml-parser": "^4.4.1"
+  }
+}
