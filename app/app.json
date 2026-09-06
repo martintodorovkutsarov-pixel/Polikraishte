@@ -8,7 +8,10 @@
     "scheme": "polikraishte",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.polikraishte.app"
+      "bundleIdentifier": "com.polikraishte.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.polikraishte.app"
