@@ -22,9 +22,6 @@ export default function CommunityScreen() {
     setRefreshing(false);
   }, []);
 
-  // Reload every time this tab comes into focus (e.g. returning from the
-  // "new post" screen, or switching back from the News tab) — not just once
-  // when the app first launches.
   useFocusEffect(
     useCallback(() => {
       load();
@@ -58,7 +55,7 @@ export default function CommunityScreen() {
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PostCard post={item} onReported={load} />}
+        renderItem={({ item }) => <PostCard post={item} onChanged={load} />}
         contentContainerStyle={{ paddingVertical: 8 }}
         refreshControl={
           <RefreshControl

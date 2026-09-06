@@ -20,8 +20,9 @@ function formatDate(iso: string) {
   });
 }
 
-export function PostCard({ post, onReported }: { post: Post; onReported?: () => void }) {
+export function PostCard({ post, onChanged }: { post: Post; onChanged?: () => void }) {
   const { session } = useAuth();
+  const isOwnPost = session?.user.id === post.author_id;
 
   async function handleReport() {
     if (!session) {
@@ -35,8 +36,30 @@ export function PostCard({ post, onReported }: { post: Post; onReported?: () => 
       Alert.alert("Грешка", error.message);
     } else {
       Alert.alert("Благодарим", "Публикацията беше докладвана за преглед.");
-      onReported?.();
+      onChanged?.();
     }
+  }
+
+  function handleDelete() {
+    Alert.alert(
+      "Изтриване на публикация",
+      "Сигурни ли сте, че искате да изтриете тази публикация? Това не може да бъде отменено.",
+      [
+        { text: "Отказ", style: "cancel" },
+        {
+          text: "Изтрий",
+          style: "destructive",
+          onPress: async () => {
+            const { error } = await supabase.from("posts").delete().eq("id", post.id);
+            if (error) {
+              Alert.alert("Грешка", error.message);
+            } else {
+              onChanged?.();
+            }
+          },
+        },
+      ]
+    );
   }
 
   return (
@@ -48,9 +71,17 @@ export function PostCard({ post, onReported }: { post: Post; onReported?: () => 
       {post.image_url ? <Image source={{ uri: post.image_url }} style={styles.image} /> : null}
       <View style={styles.footer}>
         <Text style={styles.meta}>{formatDate(post.created_at)}</Text>
-        <TouchableOpacity onPress={handleReport}>
-          <Text style={styles.report}>Докладвай</Text>
-        </TouchableOpacity>
+        <View style={styles.actions}>
+          {isOwnPost ? (
+            <TouchableOpacity onPress={handleDelete}>
+              <Text style={styles.delete}>Изтрий</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={handleReport}>
+              <Text style={styles.report}>Докладвай</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -73,6 +104,8 @@ const styles = StyleSheet.create({
   body: { fontSize: 15, color: "#222", marginBottom: 8 },
   image: { width: "100%", height: 200, borderRadius: 8, marginBottom: 8 },
   footer: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  actions: { flexDirection: "row" },
   meta: { fontSize: 12, color: "#888" },
   report: { fontSize: 12, color: "#c0392b" },
+  delete: { fontSize: 12, color: "#c0392b", fontWeight: "600" },
 });

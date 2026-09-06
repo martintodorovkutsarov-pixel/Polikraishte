@@ -4,6 +4,7 @@
     "slug": "polikraishte-app",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "scheme": "polikraishte",
     "ios": {
@@ -11,16 +12,15 @@
       "bundleIdentifier": "com.polikraishte.app"
     },
     "android": {
-      "package": "com.polikraishte.app"
-    },
-    "plugins": [
-      "expo-router"
-    ],
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "2c6bfbe3-0ccb-47ab-a2e0-e811afbdc450"
+      "package": "com.polikraishte.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2c7a4b"
       }
+    },
+    "plugins": ["expo-router"],
+    "extra": {
+      "router": {}
     }
   }
 }
