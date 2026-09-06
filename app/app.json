@@ -7,7 +7,7 @@
     "userInterfaceStyle": "automatic",
     "scheme": "polikraishte",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.polikraishte.app",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
