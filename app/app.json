@@ -11,10 +11,15 @@
       "bundleIdentifier": "com.polikraishte.app",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "icon": "./assets/icon.png"
     },
     "android": {
-      "package": "com.polikraishte.app"
+      "package": "com.polikraishte.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2c7a4b"
+      }
     },
     "plugins": [
       "expo-router"
@@ -24,6 +29,7 @@
       "eas": {
         "projectId": "2c6bfbe3-0ccb-47ab-a2e0-e811afbdc450"
       }
-    }
+    },
+    "icon": "./assets/icon.png"
   }
 }
