@@ -8,6 +8,10 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="auth" options={{ headerShown: true, title: "Профил", presentation: "modal" }} />
         <Stack.Screen
+          name="account"
+          options={{ headerShown: true, title: "Моят акаунт", presentation: "modal" }}
+        />
+        <Stack.Screen
           name="post/new"
           options={{ headerShown: true, title: "Нова публикация", presentation: "modal" }}
         />

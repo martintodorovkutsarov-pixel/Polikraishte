@@ -1,16 +1,15 @@
 import { useCallback, useState } from "react";
-import { Alert, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/context/AuthContext";
 import { PostCard, type Post } from "@/components/PostCard";
 
 export default function CommunityScreen() {
-  const { session, profile, signOut, deleteAccount } = useAuth();
+  const { session, profile } = useAuth();
   const [posts, setPosts] = useState<Post[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [deleting, setDeleting] = useState(false);
 
   const load = useCallback(async () => {
     const { data, error } = await supabase
@@ -37,44 +36,13 @@ export default function CommunityScreen() {
     }
   }
 
-  function handleDeleteAccount() {
-    Alert.alert(
-      "Изтриване на профила",
-      "Това ще изтрие завинаги профила ви, всички ваши публикации и снимки. Действието не може да бъде отменено. Сигурни ли сте?",
-      [
-        { text: "Отказ", style: "cancel" },
-        {
-          text: "Изтрий профила",
-          style: "destructive",
-          onPress: async () => {
-            setDeleting(true);
-            const { error } = await deleteAccount();
-            setDeleting(false);
-            if (error) {
-              Alert.alert("Грешка", error);
-            } else {
-              Alert.alert("Готово", "Профилът ви беше изтрит.");
-            }
-          },
-        },
-      ]
-    );
-  }
-
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
         {session ? (
-          <View style={styles.accountLinks}>
-            <TouchableOpacity onPress={signOut}>
-              <Text style={styles.headerLink}>Изход ({profile?.username})</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeleteAccount} disabled={deleting}>
-              <Text style={styles.deleteAccountLink}>
-                {deleting ? "Изтриване…" : "Изтрий профила"}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={() => router.push("/account")}>
+            <Text style={styles.headerLink}>Моят акаунт ({profile?.username})</Text>
+          </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => router.push("/auth")}>
             <Text style={styles.headerLink}>Вход / Регистрация</Text>
@@ -123,9 +91,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     backgroundColor: "#fafafa",
   },
-  accountLinks: { flexDirection: "column" },
   headerLink: { color: "#2c7a4b", fontWeight: "500" },
-  deleteAccountLink: { color: "#c0392b", fontSize: 11, marginTop: 3 },
   newButton: { backgroundColor: "#2c7a4b", paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8 },
   newButtonText: { color: "#fff", fontWeight: "600" },
   empty: { padding: 32, alignItems: "center" },
