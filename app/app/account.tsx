@@ -57,7 +57,7 @@ export default function AccountScreen() {
         <Text style={styles.value}>{session.user.email}</Text>
       </View>
 
-      <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
+      <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut} activeOpacity={0.7}>
         <Text style={styles.signOutText}>Изход</Text>
       </TouchableOpacity>
 
@@ -71,6 +71,7 @@ export default function AccountScreen() {
         style={styles.deleteButton}
         onPress={handleDeleteAccount}
         disabled={deleting}
+        activeOpacity={0.7}
       >
         <Text style={styles.deleteButtonText}>
           {deleting ? "Изтриване…" : "Изтрий профила"}
@@ -81,19 +82,27 @@ export default function AccountScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24 },
+  container: { flex: 1, padding: 24, backgroundColor: "#fff" },
   info: { fontSize: 16, color: "#666", textAlign: "center", marginTop: 40 },
   section: { marginBottom: 20 },
   label: { fontSize: 12, color: "#888", marginBottom: 4, textTransform: "uppercase" },
   value: { fontSize: 17, color: "#222", fontWeight: "500" },
   signOutButton: {
-    backgroundColor: "#eef4f0",
-    borderRadius: 8,
-    padding: 14,
+    backgroundColor: "#2c7a4b",
+    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
     alignItems: "center",
-    marginTop: 12,
+    justifyContent: "center",
+    marginTop: 16,
+    alignSelf: "stretch",
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 1,
   },
-  signOutText: { color: "#2c7a4b", fontWeight: "600", fontSize: 16 },
+  signOutText: { color: "#fff", fontWeight: "700", fontSize: 16 },
   divider: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: "#ddd",
@@ -102,11 +111,15 @@ const styles = StyleSheet.create({
   dangerTitle: { fontSize: 15, fontWeight: "700", color: "#c0392b", marginBottom: 6 },
   dangerHint: { fontSize: 13, color: "#888", marginBottom: 14, lineHeight: 18 },
   deleteButton: {
-    borderWidth: 1,
+    backgroundColor: "#fdf1ef",
+    borderWidth: 1.5,
     borderColor: "#c0392b",
-    borderRadius: 8,
-    padding: 14,
+    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
     alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "stretch",
   },
   deleteButtonText: { color: "#c0392b", fontWeight: "700", fontSize: 16 },
 });
