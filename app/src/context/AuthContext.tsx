@@ -20,6 +20,7 @@ type AuthContextValue = {
     username: string
   ) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
+  deleteAccount: () => Promise<{ error: string | null }>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -73,8 +74,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await supabase.auth.signOut();
   }
 
+  // Permanently deletes the signed-in user's account: their posts, reports,
+  // uploaded images, profile, and auth record. Runs server-side (Edge
+  // Function) since deleting an auth user requires elevated privileges the
+  // app itself never holds.
+  async function deleteAccount() {
+    if (!session) return { error: "Not signed in" };
+    const { error } = await supabase.functions.invoke("delete-account", {
+      headers: { Authorization: `Bearer ${session.access_token}` },
+    });
+    if (error) return { error: error.message };
+    await supabase.auth.signOut();
+    return { error: null };
+  }
+
   return (
-    <AuthContext.Provider value={{ session, profile, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{ session, profile, loading, signIn, signUp, signOut, deleteAccount }}
+    >
       {children}
     </AuthContext.Provider>
   );
