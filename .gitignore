@@ -5,3 +5,5 @@ web-build/
 .env
 *.log
 .DS_Store
+**/.DS_Store
+Claude outputs/
